@@ -60,6 +60,7 @@ const NewArticle = () => {
             author: '',
             content: '',
             imageUrl: '',
+            imageDescription: '',
         }
     });
     const title = useWatch({ control: form.control, name: 'title' });
@@ -178,79 +179,94 @@ const NewArticle = () => {
                                             </div>
                                         </CardHeader>
                                         <CardContent>
-                                            <div className="grid gap-6">
-                                                <div className="grid grid-cols-1 gap-4 w-full">
-                                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                                        <FormField
-                                                            control={form.control}
-                                                            name="title"
-                                                            render={({ field }) => (
-                                                                <FormItem>
-                                                                    <FormLabel>Título</FormLabel>
-                                                                    <FormControl>
-                                                                        <Input placeholder="Título do artigo" {...field} />
-                                                                    </FormControl>
-                                                                    <FormMessage />
-                                                                </FormItem>
-                                                            )}
-                                                        />
-                                                        <FormField
-                                                            control={form.control}
-                                                            name="subtitle"
-                                                            render={({ field }) => (
-                                                                <FormItem>
-                                                                    <FormLabel>Sub-título</FormLabel>
-                                                                    <FormControl>
-                                                                        <Input placeholder="Sub-título do artigo" {...field} />
-                                                                    </FormControl>
-                                                                    <FormMessage />
-                                                                </FormItem>
-                                                            )}
-                                                        />
-                                                    </div>
-
-                                                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                                                        <FormField
-                                                            control={form.control}
-                                                            name="slug"
-                                                            render={({ field }) => (
-                                                                <FormItem>
-                                                                    <FormLabel>Slug</FormLabel>
-                                                                    <FormControl>
-                                                                        <Input placeholder="Slug do artigo" {...field} />
-                                                                    </FormControl>
-                                                                    <FormMessage />
-                                                                </FormItem>
-                                                            )}
-                                                        />
-                                                        <FormField
-                                                            control={form.control}
-                                                            name="author"
-                                                            render={({ field }) => (
-                                                                <FormItem>
-                                                                    <FormLabel>Autor</FormLabel>
-                                                                    <FormControl>
-                                                                        <Input placeholder="Autor do artigo" {...field} />
-                                                                    </FormControl>
-                                                                    <FormMessage />
-                                                                </FormItem>
-                                                            )}
-                                                        />
-                                                        <FormField
-                                                            control={form.control}
-                                                            name="imageUrl"
-                                                            render={({ field }) => (
-                                                                <FormItem>
-                                                                    <FormLabel>Capa do artigo</FormLabel>
-                                                                    <FormControl>
-                                                                        <Input type="text" placeholder="URL" {...field} />
-                                                                    </FormControl>
-                                                                    <FormMessage />
-                                                                </FormItem>
-                                                            )}
-                                                        />
-                                                    </div>
+                                            <div className="grid gap-2">
+                                                <div className="grid grid-cols-2 gap-4 w-full">
+                                                    <FormField
+                                                        control={form.control}
+                                                        name="title"
+                                                        render={({ field }) => (
+                                                            <FormItem>
+                                                                <FormLabel>Título</FormLabel>
+                                                                <FormControl>
+                                                                    <Input placeholder="Título do artigo" {...field} />
+                                                                </FormControl>
+                                                                <FormMessage />
+                                                            </FormItem>
+                                                        )}
+                                                    />
+                                                    <FormField
+                                                        control={form.control}
+                                                        name="subtitle"
+                                                        render={({ field }) => (
+                                                            <FormItem>
+                                                                <FormLabel>Sub-título</FormLabel>
+                                                                <FormControl>
+                                                                    <Input placeholder="Sub-título do artigo" {...field} />
+                                                                </FormControl>
+                                                                <FormMessage />
+                                                            </FormItem>
+                                                        )}
+                                                    />
                                                 </div>
+
+                                                <div className="grid grid-cols-2 gap-4">
+                                                    <FormField
+                                                        control={form.control}
+                                                        name="slug"
+                                                        render={({ field }) => (
+                                                            <FormItem>
+                                                                <FormLabel>Slug</FormLabel>
+                                                                <FormControl>
+                                                                    <Input placeholder="Slug do artigo" {...field} />
+                                                                </FormControl>
+                                                                <FormMessage />
+                                                            </FormItem>
+                                                        )}
+                                                    />
+                                                    <FormField
+                                                        control={form.control}
+                                                        name="author"
+                                                        render={({ field }) => (
+                                                            <FormItem>
+                                                                <FormLabel>Autor</FormLabel>
+                                                                <FormControl>
+                                                                    <Input placeholder="Autor do artigo" {...field} />
+                                                                </FormControl>
+                                                                <FormMessage />
+                                                            </FormItem>
+                                                        )}
+                                                    />
+                                                </div>
+
+                                                <div className="grid grid-cols-2 gap-4">
+                                                    <FormField
+                                                        control={form.control}
+                                                        name="imageUrl"
+                                                        render={({ field }) => (
+                                                            <FormItem>
+                                                                <FormLabel>Capa do artigo</FormLabel>
+                                                                <FormControl>
+                                                                    <Input type="text" placeholder="URL" {...field} />
+                                                                </FormControl>
+                                                                <FormMessage />
+                                                            </FormItem>
+                                                        )}
+                                                    />
+                                                    <FormField
+                                                        control={form.control}
+                                                        name="imageDescription"
+                                                        render={({ field }) => (
+                                                            <FormItem>
+                                                                <FormLabel>Descrição da Imagem</FormLabel>
+                                                                <FormControl>
+                                                                    <Input type="text" placeholder="Sobre a imagem..." {...field} />
+                                                                </FormControl>
+                                                                <FormMessage />
+                                                            </FormItem>
+                                                        )}
+                                                    />
+                                                </div>
+
                                                 <FormField
                                                     control={form.control}
                                                     name="content"

@@ -15,7 +15,7 @@ export const createArticle = async (values: z.infer<typeof ArticleSchema>) => {
         return { error: "Erro ao validar os campos" }
     }
 
-    const { title, subtitle, slug, author, published, content, imageUrl } = validatedFields.data
+    const { title, subtitle, slug, author, published, content, imageUrl, imageDescription } = validatedFields.data
 
     const existingArticle = await db.article.findFirst({
         where: {
@@ -45,6 +45,7 @@ export const createArticle = async (values: z.infer<typeof ArticleSchema>) => {
                 published,
                 author,
                 imageUrl,
+                imageDescription,
                 user: {
                     connect: {
                         id: session?.user.id
@@ -68,7 +69,7 @@ export const updateArticle = async (values: z.infer<typeof ArticleSchema> & { sl
         return { error: "Erro ao validar os campos" };
     }
 
-    const { title, subtitle, slug, published, content, imageUrl } = validatedFields.data;
+    const { title, subtitle, slug, published, content, imageUrl, imageDescription } = validatedFields.data;
 
     const existingArticle = await db.article.findUnique({
         where: {
@@ -104,6 +105,7 @@ export const updateArticle = async (values: z.infer<typeof ArticleSchema> & { sl
             content,
             published,
             imageUrl,
+            imageDescription,
             user: {
                 connect: {
                     id: session?.user.id

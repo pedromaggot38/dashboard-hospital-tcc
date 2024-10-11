@@ -31,18 +31,19 @@ model User {
 }
 
 model Article {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  title     String
-  subtitle  String?
-  content   String?
-  published Boolean  @default(false)
-  slug      String   @unique
-  author    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Restrict)
-  userId    String
-  imageUrl  String?
+  id               Int      @id @default(autoincrement())
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  title            String
+  subtitle         String?
+  content          String?
+  published        Boolean  @default(false)
+  slug             String   @unique
+  author           String
+  imageUrl         String?
+  imageDescription String?
+  user             User     @relation(fields: [userId], references: [id], onDelete: Restrict)
+  userId           String
 
   @@index([slug, userId, createdAt])
   @@map("article")
