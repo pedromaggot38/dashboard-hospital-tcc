@@ -30,6 +30,7 @@ import { useRouter } from "next/navigation";
 import { useQuill } from 'react-quilljs';
 import 'quill/dist/quill.snow.css';
 import { toolbarOptions } from "@/lib/vars";
+import Uploader from "../uploader";
 
 const createSlug = (title: string) => {
     return title
@@ -95,8 +96,10 @@ const NewArticle = () => {
         setError('');
         startTransition(() => {
             createArticle(values)
-                .then((data) => {
+                .then(async (data) => {
                     if (data.success) {
+                        await uploader.uploadImage(values.slug);
+                        
                         setSuccess(data.success);
                         router.push("/dashboard/articles");
                         form.reset();
@@ -137,7 +140,7 @@ const NewArticle = () => {
                                                     <CardTitle>Detalhes da Publicação</CardTitle>
                                                     <CardDescription>Preencha os campos abaixo para criar uma nova publicação</CardDescription>
                                                 </div>
-                                                <div>
+                                                <div className="flex gap-4">
                                                     <FormField
                                                         control={form.control}
                                                         name="published"
@@ -167,6 +170,7 @@ const NewArticle = () => {
                                                             </FormItem>
                                                         )}
                                                     />
+                                                    <Uploader slug={form.watch('slug')} />
                                                 </div>
                                             </div>
                                         </CardHeader>

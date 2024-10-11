@@ -77,3 +77,8 @@
   max-width: 800px;
   margin: 0 auto;
 }
+
+.uppy-Dashboard-inner {
+  width: auto !important;
+  height: 25rem !important;
+}
