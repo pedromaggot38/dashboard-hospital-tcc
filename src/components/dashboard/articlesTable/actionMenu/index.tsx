@@ -40,7 +40,8 @@ const ActionMenu: React.FC<ActionMenuProps> = ({ article }) => {
             const response = await deleteArticle(article.slug);
             if (response.success) {
                 setIsDialogOpen(false);
-                router.replace('/dashboard/articles');
+                router.push("/dashboard/articles");
+                router.refresh();
             } else {
                 console.error('Erro ao apagar o artigo:', response.message);
             }
