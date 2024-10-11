@@ -58,7 +58,8 @@ const NewArticle = () => {
             slug: '',
             published: false,
             author: '',
-            content: ''
+            content: '',
+            imageUrl: '',
         }
     });
     const title = useWatch({ control: form.control, name: 'title' });
@@ -90,16 +91,18 @@ const NewArticle = () => {
     }, [quill, form]);
     {/***************** Quill Editor**************** */ }
 
+    const onUploadSuccess = (url: string) => {
+        console.log("Image URL:", url);
+        form.setValue('imageUrl', url);
+    };
 
     const onSubmit = (values: z.infer<typeof ArticleSchema>) => {
         setSuccess('');
         setError('');
         startTransition(() => {
             createArticle(values)
-                .then(async (data) => {
+                .then((data) => {
                     if (data.success) {
-                        await uploader.uploadImage(values.slug);
-                        
                         setSuccess(data.success);
                         router.push("/dashboard/articles");
                         form.reset();
@@ -170,7 +173,7 @@ const NewArticle = () => {
                                                             </FormItem>
                                                         )}
                                                     />
-                                                    <Uploader slug={form.watch('slug')} />
+                                                    <Uploader onUploadSuccess={onUploadSuccess} />
                                                 </div>
                                             </div>
                                         </CardHeader>
@@ -224,6 +227,19 @@ const NewArticle = () => {
                                                                 <FormLabel>Autor</FormLabel>
                                                                 <FormControl>
                                                                     <Input placeholder="Autor da publicação" {...field} />
+                                                                </FormControl>
+                                                                <FormMessage />
+                                                            </FormItem>
+                                                        )}
+                                                    />
+                                                    <FormField
+                                                        control={form.control}
+                                                        name="imageUrl"
+                                                        render={({ field }) => (
+                                                            <FormItem>
+                                                                <FormLabel>Capa do artigo</FormLabel>
+                                                                <FormControl>
+                                                                    <Input type="text" placeholder="URL" {...field} />
                                                                 </FormControl>
                                                                 <FormMessage />
                                                             </FormItem>

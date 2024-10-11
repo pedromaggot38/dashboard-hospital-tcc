@@ -14,4 +14,5 @@ export const ArticleSchema = z.object({
         .max(100, "O nome do autor não pode ter mais de 100 caracteres"),
     content: z.string().optional(),
     published: z.boolean(),
+    imageUrl: z.string().optional()
 });

@@ -42,7 +42,7 @@ model Article {
   author    String
   user      User     @relation(fields: [userId], references: [id], onDelete: Restrict)
   userId    String
-  imageUrl  String
+  imageUrl  String?
 
   @@index([slug, userId, createdAt])
   @@map("article")
