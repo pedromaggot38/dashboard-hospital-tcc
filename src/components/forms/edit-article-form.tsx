@@ -114,7 +114,8 @@ const EditArticleForm: React.FC<EditArticleProps> = ({ article, originalSlug }) 
                     if (data.success) {
                         setSuccess(data.success);
                         setTimeout(() => setSuccess(''), 2000);
-                        router.replace("/dashboard/articles");
+                        router.push("/dashboard/articles");
+                        router.refresh();
                     } else if (data.error) {
                         setError(data.error);
                     }
@@ -153,7 +154,7 @@ const EditArticleForm: React.FC<EditArticleProps> = ({ article, originalSlug }) 
                                 </Button>
                             </Link>
                             <h1 className="flex-1 shrink-0 whitespace-nowrap text-xl font-semibold tracking-tight">
-                                Editar Publicação
+                                Editar Artigo
                             </h1>
                         </div>
                         <div className="grid gap-4 lg:gap-8">

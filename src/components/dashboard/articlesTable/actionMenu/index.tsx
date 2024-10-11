@@ -64,7 +64,7 @@ const ActionMenu: React.FC<ActionMenuProps> = ({ article }) => {
                     <DropdownMenuItem
                         onSelect={() => router.push(`/dashboard/articles/${article.slug}/`)}
                     >
-                        Editar publicação
+                        Editar artigo
                     </DropdownMenuItem>
                     {role !== 'journalist' && (
                         <>
@@ -72,7 +72,7 @@ const ActionMenu: React.FC<ActionMenuProps> = ({ article }) => {
                             <DropdownMenuItem
                                 onSelect={() => setIsDialogOpen(true)}
                             >
-                                <span className='text-red-500'>Apagar publicação</span>
+                                <span className='text-red-500'>Apagar artigo</span>
                             </DropdownMenuItem>
                         </>
                     )}
@@ -86,7 +86,7 @@ const ActionMenu: React.FC<ActionMenuProps> = ({ article }) => {
                     <AlertDialogHeader>
                         <AlertDialogTitle>Confirmar exclusão</AlertDialogTitle>
                         <AlertDialogDescription>
-                            Você tem certeza que deseja apagar esta publicação? Esta ação não pode ser desfeita.
+                            Você tem certeza que deseja apagar este artigo? Esta ação não pode ser desfeita.
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
@@ -96,7 +96,7 @@ const ActionMenu: React.FC<ActionMenuProps> = ({ article }) => {
                         <AlertDialogAction
                             onClick={handleDelete}
                         >
-                            Confirmar
+                            Apagar
                         </AlertDialogAction>
                     </AlertDialogFooter>
                 </AlertDialogContent>
