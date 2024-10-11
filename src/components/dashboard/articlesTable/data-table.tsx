@@ -123,11 +123,11 @@ export function DataTable<TData, TValue>({
               variant="outline"
             >
               <Link
-                key="Nova Publicação"
+                key="Novo Artigo"
                 href="/dashboard/articles/new-article/"
               >
-                <span>Nova Publicação</span>
-                <span className="sr-only">Nova Publicação</span>
+                <span>Novo Artigo</span>
+                <span className="sr-only">Novo Artigo</span>
               </Link>
             </Button>
           </div>
