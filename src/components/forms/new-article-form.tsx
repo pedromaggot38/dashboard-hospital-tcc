@@ -111,7 +111,7 @@ const NewArticle = () => {
                     }
                 })
                 .catch(() => {
-                    setError("Erro ao criar a publicação.");
+                    setError("Erro ao criar o artigo.");
                 });
         });
     };
@@ -129,7 +129,7 @@ const NewArticle = () => {
                                 </Button>
                             </Link>
                             <h1 className="flex-1 shrink-0 whitespace-nowrap text-xl font-semibold tracking-tight">
-                                Nova Publicação
+                                Novo Artigo
                             </h1>
                         </div>
                         <div className="grid gap-4 lg:gap-8">
@@ -140,8 +140,8 @@ const NewArticle = () => {
 
                                             <div className="flex">
                                                 <div className="flex-grow">
-                                                    <CardTitle>Detalhes da Publicação</CardTitle>
-                                                    <CardDescription>Preencha os campos abaixo para criar uma nova publicação</CardDescription>
+                                                    <CardTitle>Detalhes do Artigo</CardTitle>
+                                                    <CardDescription>Preencha os campos abaixo para criar um novo artigo</CardDescription>
                                                 </div>
                                                 <div className="flex gap-4">
                                                     <FormField
@@ -188,7 +188,7 @@ const NewArticle = () => {
                                                                 <FormItem>
                                                                     <FormLabel>Título</FormLabel>
                                                                     <FormControl>
-                                                                        <Input placeholder="Título da publicação" {...field} />
+                                                                        <Input placeholder="Título do artigo" {...field} />
                                                                     </FormControl>
                                                                     <FormMessage />
                                                                 </FormItem>
@@ -201,7 +201,7 @@ const NewArticle = () => {
                                                                 <FormItem>
                                                                     <FormLabel>Sub-título</FormLabel>
                                                                     <FormControl>
-                                                                        <Input placeholder="Sub-título da publicação" {...field} />
+                                                                        <Input placeholder="Sub-título do artigo" {...field} />
                                                                     </FormControl>
                                                                     <FormMessage />
                                                                 </FormItem>
@@ -217,7 +217,7 @@ const NewArticle = () => {
                                                                 <FormItem>
                                                                     <FormLabel>Slug</FormLabel>
                                                                     <FormControl>
-                                                                        <Input placeholder="Slug da publicação" {...field} />
+                                                                        <Input placeholder="Slug do artigo" {...field} />
                                                                     </FormControl>
                                                                     <FormMessage />
                                                                 </FormItem>
@@ -230,7 +230,7 @@ const NewArticle = () => {
                                                                 <FormItem>
                                                                     <FormLabel>Autor</FormLabel>
                                                                     <FormControl>
-                                                                        <Input placeholder="Autor da publicação" {...field} />
+                                                                        <Input placeholder="Autor do artigo" {...field} />
                                                                     </FormControl>
                                                                     <FormMessage />
                                                                 </FormItem>
@@ -276,7 +276,7 @@ const NewArticle = () => {
                                             {error && <FormError message={error} />}
                                         </div>
                                         <div>
-                                            <Button type="submit" disabled={isPending}>Salvar Publicação</Button>
+                                            <Button type="submit" disabled={isPending}>Criar Artigo</Button>
                                         </div>
                                     </div>
                                 </form>

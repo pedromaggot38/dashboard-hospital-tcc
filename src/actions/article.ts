@@ -126,7 +126,6 @@ export const deleteArticle = async (slug: string) => {
         await db.article.delete({
             where: { slug },
         });
-
         return { success: true, message: 'Artigo deletado com sucesso' };
     } catch (error: any) {
         console.error('Erro ao deletar o artigo:', error.message);
