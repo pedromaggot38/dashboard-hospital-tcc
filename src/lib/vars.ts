@@ -1,7 +1,7 @@
 export const usersPageSize = 10;
 export const articlesPageSize = 11;
-export const lastUsersCount = 8;
-export const lastNewsCount = 11;
+export const lastUsersCount = 5;
+export const lastNewsCount = 6;
 
 export var toolbarOptions = [
     ['bold', 'italic', 'underline', 'strike'],

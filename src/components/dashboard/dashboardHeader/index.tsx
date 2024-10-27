@@ -36,6 +36,11 @@ const menuItems = [
         path: "/dashboard/articles",
         accessibility: "Artigos",
     },
+    {
+        title: "Doutores",
+        path: "/dashboard/doctors",
+        accessibility: "Doutores",
+    },
 ];
 
 export function DashboardHeader() {

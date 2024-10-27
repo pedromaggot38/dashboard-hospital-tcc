@@ -12,6 +12,15 @@ enum UserRole {
   admin
   journalist
 }
+enum WeekDay {
+  Segunda
+  Terca
+  Quarta
+  Quinta
+  Sexta
+  Sabado
+  Domingo
+}
 
 model User {
   id        String    @id @default(cuid())
@@ -56,4 +65,31 @@ model Token {
 
   @@unique([username, token])
   @@map("token")
+}
+
+model Doctor {
+  id            Int       @id @default(autoincrement())
+  name          String
+  specialty     String
+  crm           String
+  phone         String?   @unique
+  email         String?   @unique
+  image         String?
+  createdAt     DateTime  @default(now())
+  schedules     Schedule[]
+
+  @@index([id, name])
+  @@map("doctor")
+}
+
+model Schedule {
+  id          Int      @id @default(autoincrement())
+  dayOfWeek   WeekDay
+  startTime   DateTime
+  endTime     DateTime
+  doctor      Doctor   @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+  doctorId    Int
+
+  @@index([doctorId, dayOfWeek, startTime])
+  @@map("schedule")
 }
