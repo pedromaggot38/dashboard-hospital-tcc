@@ -77,7 +77,7 @@ model Article {
   title            String
   subtitle         String?
   content          String?
-  published        Boolean  @default(false)
+  published        Boolean  @default(true)
   slug             String   @unique
   author           String
   imageUrl         String?
@@ -99,16 +99,17 @@ model Token {
 }
 
 model Doctor {
-  id        Int        @id @default(autoincrement())
-  name      String
-  specialty String
-  state     States
-  crm       String     @unique
-  phone     String?    @unique
-  email     String?    @unique
-  image     String?
-  createdAt DateTime   @default(now())
-  schedules Schedule[]
+  id         Int        @id @default(autoincrement())
+  name       String
+  specialty  String
+  state      States
+  crm        String     @unique
+  phone      String?    @unique
+  email      String?    @unique
+  image      String?
+  visibility Boolean
+  createdAt  DateTime   @default(now())
+  schedules  Schedule[]
 
   @@index([crm, name])
   @@map("doctor")

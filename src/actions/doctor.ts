@@ -12,7 +12,7 @@ export const createDoctor = async (values: z.infer<typeof CreateDoctorSchema>) =
         return { error: "Erro ao validar os campos", details: validatedFields.error.errors };
     }
 
-    const { name, state, crm, specialty, email, phone, image, schedules } = validatedFields.data;
+    const { name, state, crm, specialty, email, phone, image, schedules, visibility } = validatedFields.data;
 
     const existingDoctor = await db.doctor.findFirst({
         where: {
@@ -54,6 +54,7 @@ export const createDoctor = async (values: z.infer<typeof CreateDoctorSchema>) =
                 email,
                 phone,
                 image,
+                visibility,
                 schedules: {
                     create: schedules.map(schedule => ({
                         dayOfWeek: schedule.dayOfWeek,

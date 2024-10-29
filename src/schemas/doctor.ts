@@ -22,7 +22,7 @@ export const ScheduleSchema = z.object({
 });
 
 export const DoctorSchema = z.object({
-  id: z.number().int().positive().optional(),  // ID é opcional, pois é gerado automaticamente
+  id: z.number().int().positive().optional(),
   name: z.string().min(1, "Nome é obrigatório"),
   specialty: z.string().min(1, "Especialidade é obrigatória"),
   state: States,
@@ -30,7 +30,8 @@ export const DoctorSchema = z.object({
   phone: z.string().optional(),
   email: z.string().email("Email inválido").optional(),
   image: z.string().url("URL da imagem inválida").optional(),
-  createdAt: z.date().optional(),  // Data de criação gerada automaticamente
+  visibility: z.boolean().default(true),
+  createdAt: z.date().optional(),
   schedules: z.array(ScheduleSchema).min(1, "Adicione pelo menos um horário de atendimento"),
 });
 

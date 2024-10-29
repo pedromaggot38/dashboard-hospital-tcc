@@ -56,7 +56,7 @@ const NewArticle = () => {
             title: '',
             subtitle: '',
             slug: '',
-            published: false,
+            published: true,
             author: '',
             content: '',
             imageUrl: '',

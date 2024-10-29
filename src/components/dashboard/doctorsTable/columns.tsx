@@ -74,15 +74,45 @@ export const columns: ColumnDef<Doctors>[] = [
   },
   {
     accessorKey: "state",
-    header: "Estado",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Estado
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
   },
   {
     accessorKey: "crm",
-    header: "CRM",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          CRM
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
   },
   {
     accessorKey: "phone",
-    header: "Telefone",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Telefone
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
     cell: info => {
       const value = info.getValue<string>();
       return <div>{value || 'Não informado'}</div>;
@@ -90,7 +120,17 @@ export const columns: ColumnDef<Doctors>[] = [
   },
   {
     accessorKey: "email",
-    header: "E-mail",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          E-mail
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
     cell: info => {
       const value = info.getValue<string>();
       return <div>{value || 'Não informado'}</div>;
@@ -98,7 +138,17 @@ export const columns: ColumnDef<Doctors>[] = [
   },
   {
     accessorKey: "image",
-    header: "Imagem",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Imagem
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
     cell: info => {
       const imageUrl = info.getValue<string>();
       return (
