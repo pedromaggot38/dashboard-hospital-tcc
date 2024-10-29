@@ -43,7 +43,7 @@ const ActionMenu: React.FC<ActionMenuProps> = ({ doctor }) => {
                 router.push("/dashboard/doctors");
                 router.refresh();
             } else {
-                console.error('Erro ao apagar o médico:', response.message);
+                console.error('Erro ao apagar o médico:', response.error);
             }
         } catch (error) {
             console.error("Erro ao deletar o médico:", error);
