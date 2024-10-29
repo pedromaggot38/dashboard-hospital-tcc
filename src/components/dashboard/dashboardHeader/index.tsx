@@ -37,7 +37,7 @@ const menuItems = [
         accessibility: "Artigos",
     },
     {
-        title: "Doutores",
+        title: "Médicos",
         path: "/dashboard/doctors",
         accessibility: "Doutores",
     },
