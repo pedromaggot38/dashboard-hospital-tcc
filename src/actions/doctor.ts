@@ -6,7 +6,6 @@ import { revalidatePath } from 'next/cache';
 import { CreateDoctorSchema } from '@/schemas/doctor';
 
 export const createDoctor = async (values: z.infer<typeof CreateDoctorSchema>) => {
-    // Valida os campos de entrada usando o schema Zod
     const validatedFields = CreateDoctorSchema.safeParse(values);
 
     if (!validatedFields.success) {
@@ -15,7 +14,6 @@ export const createDoctor = async (values: z.infer<typeof CreateDoctorSchema>) =
 
     const { name, state, crm, specialty, email, phone, image, schedules } = validatedFields.data;
 
-    // Verificação de duplicidade para CRM, email e telefone
     const existingDoctor = await db.doctor.findFirst({
         where: {
             OR: [
@@ -46,7 +44,6 @@ export const createDoctor = async (values: z.infer<typeof CreateDoctorSchema>) =
         dayScheduleMap.set(schedule.dayOfWeek, schedule);
     }
 
-    // Criação do médico com os horários
     try {
         await db.doctor.create({
             data: {
@@ -72,4 +69,26 @@ export const createDoctor = async (values: z.infer<typeof CreateDoctorSchema>) =
     }
     revalidatePath('/dashboard/doctors');
     return { success: "Médico criado com sucesso!" };
+};
+
+export const deleteDoctor = async (doctorCrm: string) => {
+    try {
+        const existingDoctor = await db.doctor.findUnique({
+            where: { crm: doctorCrm },
+        });
+
+        if (!existingDoctor) {
+            return { error: "Médico não encontrado!" };
+        }
+
+        await db.doctor.delete({
+            where: { crm: doctorCrm },
+        });
+
+        revalidatePath('/dashboard/doctors');
+        return { success: "Médico excluído com sucesso!" };
+    } catch (error) {
+        console.error("Erro ao excluir o médico:", error);
+        return { error: "Erro ao excluir o médico. Tente novamente mais tarde." };
+    }
 };

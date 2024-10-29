@@ -20,8 +20,8 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { MoreHorizontal } from "lucide-react";
-import { deleteArticle } from '@/actions/article';
 import { useCurrentRole } from '@/hooks/use-current-role';
+import { deleteDoctor } from '@/actions/doctor';
 
 interface ActionMenuProps {
     doctor: {
@@ -37,7 +37,7 @@ const ActionMenu: React.FC<ActionMenuProps> = ({ doctor }) => {
 
     const handleDelete = async () => {
         try {
-            const response = await deleteArticle(doctor.crm);
+            const response = await deleteDoctor(doctor.crm);
             if (response.success) {
                 setIsDialogOpen(false);
                 router.push("/dashboard/doctors");
@@ -55,7 +55,7 @@ const ActionMenu: React.FC<ActionMenuProps> = ({ doctor }) => {
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                     <Button variant="ghost" className="h-8 w-8 p-0">
-                        <span className="sr-only">Open menu</span>
+                        <span className="sr-only">Abrir menu</span>
                         <MoreHorizontal className="h-4 w-4" />
                     </Button>
                 </DropdownMenuTrigger>
@@ -87,7 +87,7 @@ const ActionMenu: React.FC<ActionMenuProps> = ({ doctor }) => {
                     <AlertDialogHeader>
                         <AlertDialogTitle>Confirmar exclusão</AlertDialogTitle>
                         <AlertDialogDescription>
-                            Você tem certeza que deseja apagar este artigo? Esta ação não pode ser desfeita.
+                            Você tem certeza que deseja apagar este médico? Esta ação não pode ser desfeita.
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
