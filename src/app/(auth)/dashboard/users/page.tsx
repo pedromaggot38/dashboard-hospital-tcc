@@ -1,7 +1,7 @@
 
 import UsersTable from "@/components/dashboard/usersTable";
 
-const Users = () => {
+const UsersPage = () => {
 
     return (
         <div className="flex flex-col items-center">
@@ -12,4 +12,4 @@ const Users = () => {
     )
 }
 
-export default Users
+export default UsersPage

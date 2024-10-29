@@ -65,7 +65,7 @@ const ActionMenu: React.FC<ActionMenuProps> = ({ doctor }) => {
                     <DropdownMenuItem
                         onSelect={() => router.push(`/dashboard/doctors/${doctor.crm}/`)}
                     >
-                        Editar artigo
+                        Editar médico
                     </DropdownMenuItem>
                     {role !== 'journalist' && (
                         <>

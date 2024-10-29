@@ -1,6 +1,6 @@
 import ArticlesTable from "@/components/dashboard/articlesTable"
 
-const Articles = () => {
+const ArticlesPage = () => {
     return (
         <div className="flex flex-col items-center">
             <div className="w-full max-w-6xl px-4">
@@ -10,4 +10,4 @@ const Articles = () => {
     )
 }
 
-export default Articles
+export default ArticlesPage

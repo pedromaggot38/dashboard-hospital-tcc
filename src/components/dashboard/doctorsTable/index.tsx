@@ -1,7 +1,8 @@
 import { db } from "@/lib/db";
-import { Doctors } from "./columns";
+import { columns, Doctors } from "./columns";
+import { DataTable } from "./data-table";
 
-async function getData(): Promise<Doctors[]> {
+async function getDoctorsData(): Promise<Doctors[]> {
     const doctors = await db.doctor.findMany({
         select: {
             id: true,
@@ -30,28 +31,28 @@ async function getData(): Promise<Doctors[]> {
         id: doctor.id,
         name: doctor.name,
         specialty: doctor.specialty,
-        state: doctor.state,
+        state: doctor.state as string,
         crm: doctor.crm,
+        createdAt: doctor.createdAt,
         phone: doctor.phone ?? "",
         email: doctor.email ?? "",
         image: doctor.image ?? "",
-        createdAt: doctor.createdAt,
         schedules: doctor.schedules.map(schedule => ({
             dayOfWeek: schedule.dayOfWeek as string,
-            startTime: schedule.startTime,
-            endTime: schedule.endTime,
+            startTime: schedule.startTime.toISOString(),
+            endTime: schedule.endTime.toISOString(),
         })),
     }));
 }
 
-const ArticlesTable = async () => {
-    const data = await getData()
+const DoctorsTable = async () => {
+    const data = await getDoctorsData();
 
     return (
         <div>
-            {/*<DataTable columns={columns} data={data} />*/}
+            <DataTable columns={columns} data={data} />
         </div>
     );
 };
 
-export default ArticlesTable;
+export default DoctorsTable;
