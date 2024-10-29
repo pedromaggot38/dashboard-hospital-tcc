@@ -137,32 +137,6 @@ export const columns: ColumnDef<Doctors>[] = [
     },
   },
   {
-    accessorKey: "image",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Imagem
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      )
-    },
-    cell: info => {
-      const imageUrl = info.getValue<string>();
-      return (
-        <div>
-          {imageUrl ? (
-            <Image src={imageUrl} alt="Imagem do médico" className="h-10 w-10 rounded-full" />
-          ) : (
-            <div className="h-10 w-10 bg-gray-200 rounded-full" />
-          )}
-        </div>
-      );
-    },
-  },
-  {
     id: "actions",
     cell: ({ row }) => {
       const doctor = row.original;

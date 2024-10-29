@@ -1,6 +1,6 @@
 'use client';
 
-import { ChevronLeft, Edit } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
 import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import {
@@ -25,7 +25,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { DoctorSchema, WeekDay } from "@/schemas/doctor";
-import { createDoctor } from "@/actions/doctor";
+import { updateDoctor } from "@/actions/doctor";
 import { FormSuccess } from "@/components/form-success";
 import { FormError } from "@/components/form-error";
 
@@ -50,35 +50,54 @@ const EditDoctorForm: React.FC<EditDoctorFormProps> = ({ doctor }) => {
     const [success, setSuccess] = useState<string | undefined>("");
     const [error, setError] = useState<string | undefined>("");
 
+    console.log(doctor);
+
     const form = useForm<z.infer<typeof DoctorSchema>>({
         resolver: zodResolver(DoctorSchema),
-        defaultValues: {
-            name: doctor?.name || "",
-            specialty: doctor?.specialty || "",
-            state: doctor?.state as ("AC" | "AL" | "AP" | "AM" | "BA" | "CE" | "DF" | "ES" | "GO" | "MA" | "MT" | "MS" | "MG" | "PA" | "PB" | "PR" | "PE" | "PI" | "RJ" | "RN" | "RS" | "RO" | "RR" | "SC" | "SP" | "SE" | "TO") | undefined || undefined,
-            crm: doctor?.crm || "",
+        defaultValues: doctor ? {
+            name: doctor.name,
+            specialty: doctor.specialty,
+            state: doctor.state as ("AC" | "AL" | "AP" | "AM" | "BA" | "CE" | "DF" | "ES" | "GO" | "MA" | "MT" | "MS" | "MG" | "PA" | "PB" | "PR" | "PE" | "PI" | "RJ" | "RN" | "RS" | "RO" | "RR" | "SC" | "SP" | "SE" | "TO"),
+            crm: doctor.crm,
             visibility: doctor.visibility,
-            schedules: doctor?.schedules.map(schedule => ({
+            schedules: doctor.schedules.length ? doctor.schedules.map(schedule => ({
                 dayOfWeek: schedule.dayOfWeek as z.infer<typeof WeekDay>,
-                startTime: schedule.startTime,
-                endTime: schedule.endTime,
-            })) || [{ dayOfWeek: "Segunda", startTime: "08:00", endTime: "17:00" }],
-            phone: doctor?.phone || "",
-            email: doctor?.email || "",
-            image: doctor?.image || "",
-        }
+                startTime: new Date(schedule.startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                endTime: new Date(schedule.endTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+            })) : [{ dayOfWeek: 'Segunda', startTime: '08:00', endTime: '17:00' }],
+            phone: doctor.phone || undefined,
+            email: doctor.email || undefined,
+            image: doctor.image || undefined,
+        } : {}
+
     });
 
+    const { control, handleSubmit, formState: { isSubmitting, isSubmitSuccessful } } = form;
     const { fields, append, remove } = useFieldArray({
-        control: form.control,
+        control,
         name: "schedules",
     });
 
     const onSubmit = (values: z.infer<typeof DoctorSchema>) => {
         setSuccess('');
         setError('');
+        const doctorCrm = doctor?.crm;
+
+        const updatedValues = {
+            ...values,
+            schedules: values.schedules.map((schedule) => ({
+                ...schedule,
+                startTime: new Date(schedule.startTime),
+                endTime: new Date(schedule.endTime),
+            })),
+        };
+
         startTransition(() => {
-            createDoctor(values)
+            if (!doctorCrm) {
+                setError("Usuário não encontrado.");
+                return;
+            }
+            updateDoctor(doctorCrm, values)
                 .then((data) => {
                     if (data.success) {
                         setSuccess(data.success);
@@ -91,10 +110,11 @@ const EditDoctorForm: React.FC<EditDoctorFormProps> = ({ doctor }) => {
                     }
                 })
                 .catch(() => {
-                    setError("Erro ao criar o médico.");
+                    setError("Erro ao atualizar o médico.");
                 });
         });
     };
+
 
     return (
         <div className="flex flex-col sm:gap-4 sm:pl-14 w-full">
@@ -237,7 +257,11 @@ const EditDoctorForm: React.FC<EditDoctorFormProps> = ({ doctor }) => {
                                                             <FormItem>
                                                                 <FormLabel>Telefone</FormLabel>
                                                                 <FormControl>
-                                                                    <Input placeholder="(99) 99999-9999" {...field} />
+                                                                    <Input
+                                                                        placeholder="(99) 99999-9999"
+                                                                        {...field}
+                                                                        value={field.value ?? ""}
+                                                                    />
                                                                 </FormControl>
                                                                 <FormMessage />
                                                             </FormItem>
@@ -272,10 +296,79 @@ const EditDoctorForm: React.FC<EditDoctorFormProps> = ({ doctor }) => {
                                                     />
                                                 </div>
                                             </div>
+                                            <div>
+                                                <h2 className="text-lg font-semibold">Horários de Atendimento</h2>
+                                                {fields.map((item, index) => (
+                                                    <div key={item.id} className="grid grid-cols-4 gap-4 mb-2 items-center">
+                                                        <FormField
+                                                            control={form.control}
+                                                            name={`schedules.${index}.dayOfWeek`}
+                                                            render={({ field }) => (
+                                                                <FormItem>
+                                                                    <FormLabel>Dia da Semana</FormLabel>
+                                                                    <FormControl>
+                                                                        <Select
+                                                                            value={field.value || ''}
+                                                                            onValueChange={field.onChange}
+                                                                        >
+                                                                            <SelectTrigger>
+                                                                                <SelectValue placeholder="Selecione o dia" />
+                                                                            </SelectTrigger>
+                                                                            <SelectContent>
+                                                                                {["Segunda", "Terca", "Quarta", "Quinta", "Sexta", "Sabado", "Domingo"].map((day) => (
+                                                                                    <SelectItem key={day} value={day}>{day}</SelectItem>
+                                                                                ))}
+                                                                            </SelectContent>
+                                                                        </Select>
+                                                                    </FormControl>
+                                                                    <FormMessage />
+                                                                </FormItem>
+                                                            )}
+                                                        />
+                                                        <FormField
+                                                            control={form.control}
+                                                            name={`schedules.${index}.startTime`}
+                                                            render={({ field }) => (
+                                                                <FormItem>
+                                                                    <FormLabel>Início</FormLabel>
+                                                                    <FormControl>
+                                                                        <Input type="time" {...field} />
+                                                                    </FormControl>
+                                                                    <FormMessage />
+                                                                </FormItem>
+                                                            )}
+                                                        />
+                                                        <FormField
+                                                            control={form.control}
+                                                            name={`schedules.${index}.endTime`}
+                                                            render={({ field }) => (
+                                                                <FormItem>
+                                                                    <FormLabel>Fim</FormLabel>
+                                                                    <FormControl>
+                                                                        <Input type="time" {...field} />
+                                                                    </FormControl>
+                                                                    <FormMessage />
+                                                                </FormItem>
+                                                            )}
+                                                        />
+                                                        <div className="flex place-self-end">
+                                                            <Button type="button" variant="destructive" onClick={() => remove(index)}>
+                                                                Remover
+                                                            </Button>
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                                <Button
+                                                    type="button"
+                                                    onClick={() => append({ dayOfWeek: "Segunda", startTime: "08:00", endTime: "17:00" })}
+                                                >
+                                                    Adicionar Horário
+                                                </Button>
+                                            </div>
                                         </CardContent>
                                     </Card>
 
-                                    <Button type="submit" className="w-full">
+                                    <Button type="submit" className="">
                                         {isPending ? "Salvando..." : "Salvar Médico"}
                                     </Button>
                                     {success && <FormSuccess message={success} />}

@@ -109,16 +109,18 @@ export const updateDoctor = async (doctorCrm: string, values: z.infer<typeof Doc
 
     const existingDoctor = await db.doctor.findUnique({
         where: { crm: doctorCrm },
+        include: { schedules: true },
     });
 
     if (!existingDoctor) {
         return { error: "Médico não encontrado!" };
     }
 
+    // Verifica conflitos com outros médicos
     const conflictingDoctor = await db.doctor.findFirst({
         where: {
-            crm: crm !== doctorCrm ? crm : undefined,
             OR: [
+                { crm: crm !== doctorCrm ? crm : undefined },
                 { email, NOT: { crm: doctorCrm } },
                 { phone, NOT: { crm: doctorCrm } },
             ],
@@ -137,42 +139,48 @@ export const updateDoctor = async (doctorCrm: string, values: z.infer<typeof Doc
         }
     }
 
-    const dayScheduleMap = new Map();
-    for (const schedule of schedules) {
-        if (dayScheduleMap.has(schedule.dayOfWeek)) {
-            return { error: `Já existe um horário para ${schedule.dayOfWeek}!` };
-        }
-        dayScheduleMap.set(schedule.dayOfWeek, schedule);
-    }
-
     try {
         await db.$transaction(async (prisma) => {
-            // Apaga os horários antigos do médico
-            await prisma.schedule.deleteMany({
-                where: { doctor: { crm: doctorCrm } },
-            });
-
-            // Atualiza os dados do médico
+            // Atualiza dados do médico sem mexer nos horários
             await prisma.doctor.update({
                 where: { crm: doctorCrm },
-                data: {
-                    name,
-                    state,
-                    crm,
-                    specialty,
-                    email,
-                    phone,
-                    image,
-                    visibility,
-                    schedules: {
-                        create: schedules.map(schedule => ({
+                data: { name, state, crm, specialty, email, phone, image, visibility },
+            });
+
+            for (const schedule of schedules) {
+                const existingSchedule = existingDoctor.schedules.find(s => s.dayOfWeek === schedule.dayOfWeek);
+
+                if (existingSchedule) {
+                    // Atualiza o horário existente se necessário
+                    await prisma.schedule.update({
+                        where: { id: existingSchedule.id },
+                        data: {
+                            startTime: new Date(`2025-01-01T${schedule.startTime}:00Z`),
+                            endTime: new Date(`2025-01-01T${schedule.endTime}:00Z`),
+                        },
+                    });
+                } else {
+                    // Cria um novo horário se ele não existir para o dia da semana
+                    await prisma.schedule.create({
+                        data: {
+                            doctorId: existingDoctor.id,
                             dayOfWeek: schedule.dayOfWeek,
                             startTime: new Date(`2025-01-01T${schedule.startTime}:00Z`),
                             endTime: new Date(`2025-01-01T${schedule.endTime}:00Z`),
-                        })),
-                    },
-                },
-            });
+                        },
+                    });
+                }
+            }
+
+            // Remove horários que não estão mais na lista atualizada
+            const daysOfWeekToUpdate = schedules.map(schedule => schedule.dayOfWeek);
+            const schedulesToRemove = existingDoctor.schedules.filter(
+                s => !daysOfWeekToUpdate.includes(s.dayOfWeek)
+            );
+
+            for (const schedule of schedulesToRemove) {
+                await prisma.schedule.delete({ where: { id: schedule.id } });
+            }
         });
     } catch (error) {
         console.error("Erro ao atualizar o médico:", error);

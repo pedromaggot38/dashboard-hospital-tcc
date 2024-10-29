@@ -215,7 +215,7 @@ const NewDoctorForm = () => {
                                                             <FormItem>
                                                                 <FormLabel>Telefone</FormLabel>
                                                                 <FormControl>
-                                                                    <Input placeholder="(99) 99999-9999" {...field} />
+                                                                <Input placeholder="(99) 99999-9999" {...field} value={field.value ?? ""} />
                                                                 </FormControl>
                                                                 <FormMessage />
                                                             </FormItem>
@@ -320,7 +320,6 @@ const NewDoctorForm = () => {
                                                         Adicionar Horário
                                                     </Button>
                                                 </div>
-
                                             </div>
                                         </CardContent>
                                     </Card>
