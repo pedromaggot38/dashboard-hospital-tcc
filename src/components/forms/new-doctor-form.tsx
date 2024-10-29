@@ -43,9 +43,6 @@ const NewDoctorForm = () => {
             state: undefined,
             crm: "",
             visibility: true,
-            phone: "",
-            email: "",
-            image: "",
             schedules: [{ dayOfWeek: "Segunda", startTime: "08:00", endTime: "17:00" }]
         }
     });
@@ -218,7 +215,7 @@ const NewDoctorForm = () => {
                                                             <FormItem>
                                                                 <FormLabel>Telefone</FormLabel>
                                                                 <FormControl>
-                                                                <Input placeholder="(99) 99999-9999" value={field.value || ''} onChange={field.onChange} />
+                                                                    <Input placeholder="(99) 99999-9999" {...field} />
                                                                 </FormControl>
                                                                 <FormMessage />
                                                             </FormItem>
@@ -231,7 +228,7 @@ const NewDoctorForm = () => {
                                                             <FormItem>
                                                                 <FormLabel>E-mail</FormLabel>
                                                                 <FormControl>
-                                                                    <Input placeholder="you@example.com" value={field.value || ''} onChange={field.onChange} />
+                                                                    <Input placeholder="you@example.com" {...field} />
                                                                 </FormControl>
                                                                 <FormMessage />
                                                             </FormItem>
@@ -245,7 +242,7 @@ const NewDoctorForm = () => {
                                                             <FormItem>
                                                                 <FormLabel>Imagem</FormLabel>
                                                                 <FormControl>
-                                                                    <Input placeholder="URL da imagem" value={field.value || ''} onChange={field.onChange} />
+                                                                    <Input placeholder="URL da imagem" {...field} />
                                                                 </FormControl>
                                                                 <FormMessage />
                                                             </FormItem>

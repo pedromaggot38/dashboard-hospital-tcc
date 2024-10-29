@@ -26,6 +26,6 @@ export const DoctorSchema = z.object({
       endTime: z.string(),
   })),
   phone: z.string().optional().nullable(),
-  email: z.string().email("E-mail inválido").optional().nullable(),
-  image: z.string().url("URL inválida").optional().nullable(),
+  email: z.string().email("E-mail inválido").optional(),
+  image: z.string().url("URL inválida").optional(),
 });
