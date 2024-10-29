@@ -50,8 +50,6 @@ const EditDoctorForm: React.FC<EditDoctorFormProps> = ({ doctor }) => {
     const [success, setSuccess] = useState<string | undefined>("");
     const [error, setError] = useState<string | undefined>("");
 
-    console.log(doctor);
-
     const form = useForm<z.infer<typeof DoctorSchema>>({
         resolver: zodResolver(DoctorSchema),
         defaultValues: doctor ? {
@@ -62,8 +60,8 @@ const EditDoctorForm: React.FC<EditDoctorFormProps> = ({ doctor }) => {
             visibility: doctor.visibility,
             schedules: doctor.schedules.length ? doctor.schedules.map(schedule => ({
                 dayOfWeek: schedule.dayOfWeek as z.infer<typeof WeekDay>,
-                startTime: new Date(schedule.startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-                endTime: new Date(schedule.endTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                startTime: new Date(schedule.startTime).toISOString().slice(11, 16), // Pega apenas "HH:MM"
+                endTime: new Date(schedule.endTime).toISOString().slice(11, 16), // Pega apenas "HH:MM"
             })) : [{ dayOfWeek: 'Segunda', startTime: '08:00', endTime: '17:00' }],
             phone: doctor.phone || undefined,
             email: doctor.email || undefined,
