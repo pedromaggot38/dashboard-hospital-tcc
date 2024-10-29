@@ -18,6 +18,17 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
+import {
+    AlertDialog,
+    AlertDialogTrigger,
+    AlertDialogContent,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogCancel,
+    AlertDialogAction,
+} from "@/components/ui/alert-dialog";
 import { Controller, useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState, useTransition, useEffect } from "react";
@@ -25,7 +36,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { DoctorSchema, WeekDay } from "@/schemas/doctor";
-import { updateDoctor } from "@/actions/doctor";
+import { deleteDoctor, updateDoctor } from "@/actions/doctor";
 import { FormSuccess } from "@/components/form-success";
 import { FormError } from "@/components/form-error";
 
@@ -49,6 +60,7 @@ const EditDoctorForm: React.FC<EditDoctorFormProps> = ({ doctor }) => {
     const [isPending, startTransition] = useTransition();
     const [success, setSuccess] = useState<string | undefined>("");
     const [error, setError] = useState<string | undefined>("");
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
 
     const form = useForm<z.infer<typeof DoctorSchema>>({
         resolver: zodResolver(DoctorSchema),
@@ -60,8 +72,8 @@ const EditDoctorForm: React.FC<EditDoctorFormProps> = ({ doctor }) => {
             visibility: doctor.visibility,
             schedules: doctor.schedules.length ? doctor.schedules.map(schedule => ({
                 dayOfWeek: schedule.dayOfWeek as z.infer<typeof WeekDay>,
-                startTime: new Date(schedule.startTime).toISOString().slice(11, 16), // Pega apenas "HH:MM"
-                endTime: new Date(schedule.endTime).toISOString().slice(11, 16), // Pega apenas "HH:MM"
+                startTime: new Date(schedule.startTime).toISOString().slice(11, 16),
+                endTime: new Date(schedule.endTime).toISOString().slice(11, 16),
             })) : [{ dayOfWeek: 'Segunda', startTime: '08:00', endTime: '17:00' }],
             phone: doctor.phone || undefined,
             email: doctor.email || undefined,
@@ -69,6 +81,24 @@ const EditDoctorForm: React.FC<EditDoctorFormProps> = ({ doctor }) => {
         } : {}
 
     });
+
+    const handleDelete = async () => {
+        if (!doctor) {
+            return null
+        }
+        try {
+            const response = await deleteDoctor(doctor.crm);
+            if (response.success) {
+                setIsDialogOpen(false);
+                router.push("/dashboard/doctors");
+                router.refresh();
+            } else {
+                console.error('Erro ao apagar o médico:', response.error);
+            }
+        } catch (error) {
+            console.error("Erro ao deletar o médico:", error);
+        }
+    };
 
     const { control, handleSubmit, formState: { isSubmitting, isSubmitSuccessful } } = form;
     const { fields, append, remove } = useFieldArray({
@@ -366,11 +396,34 @@ const EditDoctorForm: React.FC<EditDoctorFormProps> = ({ doctor }) => {
                                         </CardContent>
                                     </Card>
 
-                                    <Button type="submit" className="">
-                                        {isPending ? "Salvando..." : "Salvar Médico"}
-                                    </Button>
-                                    {success && <FormSuccess message={success} />}
-                                    {error && <FormError message={error} />}
+                                    <div className="flex items-center justify-between">
+                                        <div>
+                                            {success && <FormSuccess message={success} />}
+                                            {error && <FormError message={error} />}
+                                        </div>
+                                        <div className="flex gap-2">
+                                            <AlertDialog>
+                                                <AlertDialogTrigger asChild>
+                                                    <Button variant="destructive">Apagar Médico</Button>
+                                                </AlertDialogTrigger>
+                                                <AlertDialogContent>
+                                                    <AlertDialogHeader>
+                                                        <AlertDialogTitle>Confirmar Exclusão</AlertDialogTitle>
+                                                        <AlertDialogDescription>
+                                                            Você tem certeza que deseja apagar este artigo? Esta ação não pode ser desfeita.
+                                                        </AlertDialogDescription>
+                                                    </AlertDialogHeader>
+                                                    <AlertDialogFooter>
+                                                        <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                                                        <AlertDialogAction onClick={handleDelete}>Apagar</AlertDialogAction>
+                                                    </AlertDialogFooter>
+                                                </AlertDialogContent>
+                                            </AlertDialog>
+                                            <Button type="submit" className="">
+                                                {isPending ? "Salvando..." : "Salvar Médico"}
+                                            </Button>
+                                        </div>
+                                    </div>
                                 </form>
                             </Form>
                         </div>

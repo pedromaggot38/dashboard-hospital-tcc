@@ -62,13 +62,13 @@ const ActionMenu: React.FC<ActionMenuProps> = ({ doctor }) => {
                 <DropdownMenuContent align="end">
                     <DropdownMenuLabel>Ações</DropdownMenuLabel>
                     {/* Usando onSelect para fechar o menu automaticamente */}
-                    <DropdownMenuItem
-                        onSelect={() => router.push(`/dashboard/doctors/${doctor.crm}/`)}
-                    >
-                        Editar médico
-                    </DropdownMenuItem>
                     {role !== 'journalist' && (
                         <>
+                            <DropdownMenuItem
+                                onSelect={() => router.push(`/dashboard/doctors/${doctor.crm}/`)}
+                            >
+                                Editar médico
+                            </DropdownMenuItem>
                             <DropdownMenuSeparator />
                             <DropdownMenuItem
                                 onSelect={() => setIsDialogOpen(true)}

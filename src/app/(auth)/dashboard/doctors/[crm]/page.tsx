@@ -1,8 +1,9 @@
 import EditDoctorForm from "@/components/forms/edit-doctor-form";
+import { currentUserRole } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { WeekDay } from "@/schemas/doctor";
 import { NextPage } from 'next';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import { z } from "zod";
 
 interface Params {
@@ -10,6 +11,11 @@ interface Params {
 }
 
 const DoctorPage: NextPage<{ params: Params }> = async ({ params }) => {
+    const currentRole = await currentUserRole();
+    if (currentRole === 'journalist') {
+        return redirect('/dashboard/doctors');
+    }
+
     const doctor = await db.doctor.findUnique({
         where: {
             crm: params.crm,
