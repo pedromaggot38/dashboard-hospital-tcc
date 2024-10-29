@@ -83,7 +83,7 @@ export const UserEditSchema = z.object({
     name: z.string().optional(),
     role: z.enum(['root', 'admin', 'journalist']),
     isBlocked: z.boolean(),
-    phone: z.string().regex(phoneRegex, 'Número de telefone inválido!').optional(),
+    phone: z.string().regex(phoneRegex, 'Número de telefone inválido!').optional().nullable(),
     email: z.string().email({ message: "Digite um e-mail válido" }).optional(),
     image: z.string().optional(),
 })

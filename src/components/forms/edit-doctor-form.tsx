@@ -1,6 +1,6 @@
-'use client'
+'use client';
 
-import { ChevronLeft } from "lucide-react";
+import { ChevronLeft, Edit } from "lucide-react";
 import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import {
@@ -20,16 +20,31 @@ import {
 } from "@/components/ui/select";
 import { Controller, useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState, useTransition } from "react";
+import { useState, useTransition, useEffect } from "react";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { DoctorSchema } from "@/schemas/doctor";
+import { DoctorSchema, WeekDay } from "@/schemas/doctor";
 import { createDoctor } from "@/actions/doctor";
 import { FormSuccess } from "@/components/form-success";
 import { FormError } from "@/components/form-error";
 
-const NewDoctorForm = () => {
+interface EditDoctorFormProps {
+    doctor?: {
+        id: number;
+        name: string;
+        specialty: string;
+        state: string;
+        crm: string;
+        visibility: boolean;
+        schedules: { dayOfWeek: string; startTime: string; endTime: string }[];
+        phone?: string | null;
+        email?: string | null;
+        image?: string | null;
+    };
+}
+
+const EditDoctorForm: React.FC<EditDoctorFormProps> = ({ doctor }) => {
     const router = useRouter();
     const [isPending, startTransition] = useTransition();
     const [success, setSuccess] = useState<string | undefined>("");
@@ -38,15 +53,19 @@ const NewDoctorForm = () => {
     const form = useForm<z.infer<typeof DoctorSchema>>({
         resolver: zodResolver(DoctorSchema),
         defaultValues: {
-            name: "",
-            specialty: "",
-            state: undefined,
-            crm: "",
-            visibility: true,
-            phone: "",
-            email: "",
-            image: "",
-            schedules: [{ dayOfWeek: "Segunda", startTime: "08:00", endTime: "17:00" }]
+            name: doctor?.name || "",
+            specialty: doctor?.specialty || "",
+            state: doctor?.state as ("AC" | "AL" | "AP" | "AM" | "BA" | "CE" | "DF" | "ES" | "GO" | "MA" | "MT" | "MS" | "MG" | "PA" | "PB" | "PR" | "PE" | "PI" | "RJ" | "RN" | "RS" | "RO" | "RR" | "SC" | "SP" | "SE" | "TO") | undefined || undefined,
+            crm: doctor?.crm || "",
+            visibility: doctor.visibility,
+            schedules: doctor?.schedules.map(schedule => ({
+                dayOfWeek: schedule.dayOfWeek as z.infer<typeof WeekDay>,
+                startTime: schedule.startTime,
+                endTime: schedule.endTime,
+            })) || [{ dayOfWeek: "Segunda", startTime: "08:00", endTime: "17:00" }],
+            phone: doctor?.phone || "",
+            email: doctor?.email || "",
+            image: doctor?.image || "",
         }
     });
 
@@ -90,7 +109,7 @@ const NewDoctorForm = () => {
                                 </Button>
                             </Link>
                             <h1 className="flex-1 shrink-0 whitespace-nowrap text-xl font-semibold tracking-tight">
-                                Novo Médico
+                                Editar Médico
                             </h1>
                         </div>
                         <div className="grid gap-4 lg:gap-8">
@@ -218,7 +237,7 @@ const NewDoctorForm = () => {
                                                             <FormItem>
                                                                 <FormLabel>Telefone</FormLabel>
                                                                 <FormControl>
-                                                                <Input placeholder="(99) 99999-9999" value={field.value || ''} onChange={field.onChange} />
+                                                                    <Input placeholder="(99) 99999-9999" {...field} />
                                                                 </FormControl>
                                                                 <FormMessage />
                                                             </FormItem>
@@ -231,7 +250,7 @@ const NewDoctorForm = () => {
                                                             <FormItem>
                                                                 <FormLabel>E-mail</FormLabel>
                                                                 <FormControl>
-                                                                    <Input placeholder="you@example.com" value={field.value || ''} onChange={field.onChange} />
+                                                                    <Input placeholder="you@example.com" {...field} />
                                                                 </FormControl>
                                                                 <FormMessage />
                                                             </FormItem>
@@ -245,98 +264,22 @@ const NewDoctorForm = () => {
                                                             <FormItem>
                                                                 <FormLabel>Imagem</FormLabel>
                                                                 <FormControl>
-                                                                    <Input placeholder="URL da imagem" value={field.value || ''} onChange={field.onChange} />
+                                                                    <Input placeholder="URL da imagem" {...field} />
                                                                 </FormControl>
                                                                 <FormMessage />
                                                             </FormItem>
                                                         )}
                                                     />
                                                 </div>
-
-                                                {/* Horários de Atendimento */}
-                                                <div>
-                                                    <h2 className="text-lg font-semibold">Horários de Atendimento</h2>
-                                                    {fields.map((item, index) => (
-                                                        <div key={item.id} className="grid grid-cols-4 gap-4 mb-2 items-center">
-                                                            <FormField
-                                                                control={form.control}
-                                                                name={`schedules.${index}.dayOfWeek`}
-                                                                render={({ field }) => (
-                                                                    <FormItem>
-                                                                        <FormLabel>Dia da Semana</FormLabel>
-                                                                        <FormControl>
-                                                                            <Select
-                                                                                value={field.value || ''}
-                                                                                onValueChange={field.onChange}
-                                                                            >
-                                                                                <SelectTrigger>
-                                                                                    <SelectValue placeholder="Selecione o dia" />
-                                                                                </SelectTrigger>
-                                                                                <SelectContent>
-                                                                                    {["Segunda", "Terca", "Quarta", "Quinta", "Sexta", "Sabado", "Domingo"].map((day) => (
-                                                                                        <SelectItem key={day} value={day}>{day}</SelectItem>
-                                                                                    ))}
-                                                                                </SelectContent>
-                                                                            </Select>
-                                                                        </FormControl>
-                                                                        <FormMessage />
-                                                                    </FormItem>
-                                                                )}
-                                                            />
-                                                            <FormField
-                                                                control={form.control}
-                                                                name={`schedules.${index}.startTime`}
-                                                                render={({ field }) => (
-                                                                    <FormItem>
-                                                                        <FormLabel>Início</FormLabel>
-                                                                        <FormControl>
-                                                                            <Input type="time" {...field} />
-                                                                        </FormControl>
-                                                                        <FormMessage />
-                                                                    </FormItem>
-                                                                )}
-                                                            />
-                                                            <FormField
-                                                                control={form.control}
-                                                                name={`schedules.${index}.endTime`}
-                                                                render={({ field }) => (
-                                                                    <FormItem>
-                                                                        <FormLabel>Fim</FormLabel>
-                                                                        <FormControl>
-                                                                            <Input type="time" {...field} />
-                                                                        </FormControl>
-                                                                        <FormMessage />
-                                                                    </FormItem>
-                                                                )}
-                                                            />
-                                                            <div className="flex place-self-end">
-                                                                <Button type="button" variant="destructive" onClick={() => remove(index)}>
-                                                                    Remover
-                                                                </Button>
-                                                            </div>
-                                                        </div>
-                                                    ))}
-                                                    <Button
-                                                        type="button"
-                                                        onClick={() => append({ dayOfWeek: "Segunda", startTime: "08:00", endTime: "17:00" })}
-                                                    >
-                                                        Adicionar Horário
-                                                    </Button>
-                                                </div>
-
                                             </div>
                                         </CardContent>
                                     </Card>
 
-                                    <div className="flex items-center justify-between">
-                                        <div>
-                                            {success && <FormSuccess message={success} />}
-                                            {error && <FormError message={error} />}
-                                        </div>
-                                        <div>
-                                            <Button type="submit" disabled={isPending}>Criar Médico</Button>
-                                        </div>
-                                    </div>
+                                    <Button type="submit" className="w-full">
+                                        {isPending ? "Salvando..." : "Salvar Médico"}
+                                    </Button>
+                                    {success && <FormSuccess message={success} />}
+                                    {error && <FormError message={error} />}
                                 </form>
                             </Form>
                         </div>
@@ -344,8 +287,7 @@ const NewDoctorForm = () => {
                 </div>
             </div>
         </div>
-
     );
 };
 
-export default NewDoctorForm;
+export default EditDoctorForm;
