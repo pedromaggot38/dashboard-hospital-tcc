@@ -12,6 +12,37 @@ enum UserRole {
   admin
   journalist
 }
+
+enum States {
+  AC
+  AL
+  AP
+  AM
+  BA
+  CE
+  DF
+  ES
+  GO
+  MA
+  MT
+  MS
+  MG
+  PA
+  PB
+  PR
+  PE
+  PI
+  RJ
+  RN
+  RS
+  RO
+  RR
+  SC
+  SP
+  SE
+  TO
+}
+
 enum WeekDay {
   Segunda
   Terca
@@ -68,28 +99,32 @@ model Token {
 }
 
 model Doctor {
-  id            Int       @id @default(autoincrement())
-  name          String
-  specialty     String
-  crm           String
-  phone         String?   @unique
-  email         String?   @unique
-  image         String?
-  createdAt     DateTime  @default(now())
-  schedules     Schedule[]
+  id        Int        @id @default(autoincrement())
+  name      String
+  specialty String
+  state     States
+  crm       String     @unique
+  phone     String?    @unique
+  email     String?    @unique
+  image     String?
+  createdAt DateTime   @default(now())
+  schedules Schedule[]
 
-  @@index([id, name])
+  @@index([crm, name])
   @@map("doctor")
 }
 
 model Schedule {
-  id          Int      @id @default(autoincrement())
-  dayOfWeek   WeekDay
-  startTime   DateTime
-  endTime     DateTime
-  doctor      Doctor   @relation(fields: [doctorId], references: [id], onDelete: Cascade)
-  doctorId    Int
+  id        Int      @id @default(autoincrement())
+  dayOfWeek WeekDay
+  startTime DateTime
+  endTime   DateTime
+  doctor    Doctor   @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+  doctorId  Int
 
-  @@index([doctorId, dayOfWeek, startTime])
+  @@unique([doctorId, dayOfWeek])
+  @@index([doctorId, dayOfWeek])
   @@map("schedule")
 }
+
+//database test password: snpDMgpdBen6SYky
