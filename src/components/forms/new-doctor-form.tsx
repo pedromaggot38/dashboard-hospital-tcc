@@ -234,20 +234,6 @@ const NewDoctorForm = () => {
                                                             </FormItem>
                                                         )}
                                                     />
-
-                                                    <FormField
-                                                        control={form.control}
-                                                        name="image"
-                                                        render={({ field }) => (
-                                                            <FormItem>
-                                                                <FormLabel>Imagem</FormLabel>
-                                                                <FormControl>
-                                                                    <Input placeholder="URL da imagem" {...field} />
-                                                                </FormControl>
-                                                                <FormMessage />
-                                                            </FormItem>
-                                                        )}
-                                                    />
                                                 </div>
 
                                                 {/* Horários de Atendimento */}

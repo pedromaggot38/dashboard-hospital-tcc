@@ -106,7 +106,6 @@ model Doctor {
   crm        String     @unique
   phone      String?    @unique
   email      String?    @unique
-  image      String?
   visibility Boolean
   createdAt  DateTime   @default(now())
   schedules  Schedule[]

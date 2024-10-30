@@ -51,7 +51,6 @@ interface EditDoctorFormProps {
         schedules: { dayOfWeek: string; startTime: string; endTime: string }[];
         phone?: string | null;
         email?: string | null;
-        image?: string | null;
     };
 }
 
@@ -77,7 +76,6 @@ const EditDoctorForm: React.FC<EditDoctorFormProps> = ({ doctor }) => {
             })) : [{ dayOfWeek: 'Segunda', startTime: '08:00', endTime: '17:00' }],
             phone: doctor.phone || undefined,
             email: doctor.email || undefined,
-            image: doctor.image || undefined,
         } : {}
 
     });
@@ -303,20 +301,6 @@ const EditDoctorForm: React.FC<EditDoctorFormProps> = ({ doctor }) => {
                                                                 <FormLabel>E-mail</FormLabel>
                                                                 <FormControl>
                                                                     <Input placeholder="you@example.com" {...field} />
-                                                                </FormControl>
-                                                                <FormMessage />
-                                                            </FormItem>
-                                                        )}
-                                                    />
-
-                                                    <FormField
-                                                        control={form.control}
-                                                        name="image"
-                                                        render={({ field }) => (
-                                                            <FormItem>
-                                                                <FormLabel>Imagem</FormLabel>
-                                                                <FormControl>
-                                                                    <Input placeholder="URL da imagem" {...field} />
                                                                 </FormControl>
                                                                 <FormMessage />
                                                             </FormItem>

@@ -12,7 +12,6 @@ async function getDoctorsData(): Promise<Doctors[]> {
             crm: true,
             phone: true,
             email: true,
-            image: true,
             createdAt: true,
             schedules: {
                 select: {
@@ -36,7 +35,6 @@ async function getDoctorsData(): Promise<Doctors[]> {
         createdAt: doctor.createdAt,
         phone: doctor.phone ?? "",
         email: doctor.email ?? "",
-        image: doctor.image ?? "",
         schedules: doctor.schedules.map(schedule => ({
             dayOfWeek: schedule.dayOfWeek as string,
             startTime: schedule.startTime.toISOString(),

@@ -1,7 +1,6 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
-import Image from "next/image";
 import { z } from "zod";
 import ActionMenu from "./actionMenu";
 import { Button } from "@/components/ui/button";
@@ -15,7 +14,6 @@ export type Doctor = {
   crm: string,
   phone?: string,
   email?: string,
-  image?: string,
   createdAt: Date,
   schedules: {
     dayOfWeek: string,
@@ -32,7 +30,6 @@ export const doctorSchema = z.object({
   crm: z.string(),
   phone: z.string().optional(),
   email: z.string().optional(),
-  image: z.string().optional(),
   createdAt: z.date(),
   schedules: z.array(z.object({
     dayOfWeek: z.string(),

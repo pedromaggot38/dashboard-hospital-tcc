@@ -12,7 +12,7 @@ export const createDoctor = async (values: z.infer<typeof DoctorSchema>) => {
         return { error: "Erro ao validar os campos", details: validatedFields.error.errors };
     }
 
-    const { name, state, crm, specialty, email, phone, image, schedules, visibility } = validatedFields.data;
+    const { name, state, crm, specialty, email, phone, schedules, visibility } = validatedFields.data;
 
     const existingDoctor = await db.doctor.findFirst({
         where: {
@@ -57,7 +57,6 @@ export const createDoctor = async (values: z.infer<typeof DoctorSchema>) => {
                 specialty,
                 email,
                 phone,
-                image,
                 visibility,
                 schedules: {
                     create: schedules.map(schedule => ({
@@ -105,7 +104,7 @@ export const updateDoctor = async (doctorCrm: string, values: z.infer<typeof Doc
         return { error: "Erro ao validar os campos", details: validatedFields.error.errors };
     }
 
-    const { name, state, crm, specialty, email, phone, image, schedules, visibility } = validatedFields.data;
+    const { name, state, crm, specialty, email, phone, schedules, visibility } = validatedFields.data;
 
     const existingDoctor = await db.doctor.findUnique({
         where: { crm: doctorCrm },
@@ -144,7 +143,7 @@ export const updateDoctor = async (doctorCrm: string, values: z.infer<typeof Doc
             // Atualiza dados do médico sem mexer nos horários
             await prisma.doctor.update({
                 where: { crm: doctorCrm },
-                data: { name, state, crm, specialty, email, phone, image, visibility },
+                data: { name, state, crm, specialty, email, phone, visibility },
             });
 
             for (const schedule of schedules) {

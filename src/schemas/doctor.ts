@@ -27,5 +27,4 @@ export const DoctorSchema = z.object({
   })),
   phone: z.string().optional().nullable(),
   email: z.string().email("E-mail inválido").optional(),
-  image: z.string().url("URL inválida").optional(),
 });
