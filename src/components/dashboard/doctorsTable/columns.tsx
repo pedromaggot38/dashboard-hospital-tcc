@@ -112,7 +112,11 @@ export const columns: ColumnDef<Doctors>[] = [
     },
     cell: info => {
       const value = info.getValue<string>();
-      return <div>{value || 'Não informado'}</div>;
+      return (
+        <span className={value ? "" : "text-gray-500"}>
+          {value || "Não informado"}
+        </span>
+      )
     },
   },
   {
@@ -130,7 +134,11 @@ export const columns: ColumnDef<Doctors>[] = [
     },
     cell: info => {
       const value = info.getValue<string>();
-      return <div>{value || 'Não informado'}</div>;
+      return (
+        <span className={value ? "" : "text-gray-500"}>
+          {value || "Não informado"}
+        </span>
+      )
     },
   },
   {
