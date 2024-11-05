@@ -18,7 +18,10 @@ export const DoctorSchema = z.object({
       "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI",
       "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"
   ]).optional(),
-  crm: z.string().min(1,"CRM é obrigatório"),
+  crm: z
+  .string()
+  .min(1, "CRM é obrigatório")
+  .regex(/^\d+$/, "CRM deve conter apenas números"),
   visibility: z.boolean(),
   schedules: z.array(z.object({
       dayOfWeek: WeekDay,
