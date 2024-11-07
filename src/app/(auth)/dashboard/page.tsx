@@ -9,24 +9,24 @@ const DashboardPage = async () => {
 
   const cardItems = [
     {
-      title: "Artigos Publicados",
+      title: "Usuários",
+      description: "Quantidade total de usuários registrados.",
+      fetchCount: data.usersCount,
+    },
+    {
+      title: "Médicos",
+      description: "Quantidade total de médicos cadastrados.",
+      fetchCount: data.doctorsCount,
+    },
+    {
+      title: "Notícias Publicadas",
       description: "Quantidade total de artigos que estão publicados.",
       fetchCount: data.publishedArticlesCount,
     },
     {
-      title: "Artigos Recentes",
-      description: "Artigos criados nos últimos 7 dias.",
-      fetchCount: data.recentArticlesCountLast7Days,
-    },
-    {
-      title: "Total de Artigos",
-      description: "Quantidade total de artigos cadastrados.",
+      title: "Notícias",
+      description: "Quantidade total de notícias cadastradas.",
       fetchCount: data.articlesCount,
-    },
-    {
-      title: "Usuários",
-      description: "Quantidade total de usuários registrados.",
-      fetchCount: data.usersCount,
     },
   ];
 
