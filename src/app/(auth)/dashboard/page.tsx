@@ -65,8 +65,8 @@ const DashboardPage = () => {
       <section className="grid grid-cols-1 gap-2 lg:grid-cols-2 sm:grid-cols-1 row-span-3 h-600">
         {isLoading ? (
           <>
-            <div className="h-[500px] bg-gray-200 animate-pulse rounded-md"></div>
-            <div className="h-[500px] bg-gray-200 animate-pulse rounded-md"></div>
+            <div className="h-[500px] bg-gray-700 animate-pulse rounded-md"></div>
+            <div className="h-[500px] bg-gray-700 animate-pulse rounded-md"></div>
           </>
         ) : (
           <>
