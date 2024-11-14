@@ -9,7 +9,6 @@ import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/h
 import AvatarDashboard from "../avatarDashboard";
 import { Badge } from "@/components/ui/badge";
 
-
 interface User {
     name?: string;
     username: string;
@@ -18,6 +17,7 @@ interface User {
     createdAt: Date;
     articleCount: number;
 }
+
 export const articleSchema = z.object({
     id: z.number(),
     title: z.string(),
@@ -48,28 +48,15 @@ const formatDate = (date: Date | string): string => {
     return `${day}/${month}/${year}`;
 };
 
-const contentPreview = (text: string | undefined, length: number = 20): string => {
-    if (!text) return '';
-    return text.length > length ? `${text.substring(0, length)}...` : text;
-};
-
 export type Articles = z.infer<typeof articleSchema>;
 
 export const columns: ColumnDef<Articles>[] = [
     {
         accessorKey: "title",
         header: "Título",
-    },
-    {
-        accessorKey: "subtitle",
-        header: "Sub-Título",
-        meta: { className: "w-2/2" },
         cell: info => {
             const value = info.getValue<string>();
-            const displayContent = value ? contentPreview(value, 30) : 'Nada Informado';
-            const textClass = value ? 'truncate' : 'text-gray-500';
-
-            return <div className={textClass}>{displayContent}</div>;
+            return <div className="line-clamp-2">{value}</div>;
         },
     },
     {

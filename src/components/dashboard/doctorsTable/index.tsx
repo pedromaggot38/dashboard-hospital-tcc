@@ -13,6 +13,7 @@ async function getDoctorsData(): Promise<Doctors[]> {
             phone: true,
             email: true,
             createdAt: true,
+            visibility: true,
             schedules: {
                 select: {
                     dayOfWeek: true,
@@ -33,6 +34,7 @@ async function getDoctorsData(): Promise<Doctors[]> {
         state: doctor.state as string,
         crm: doctor.crm,
         createdAt: doctor.createdAt,
+        visibility: doctor.visibility,
         phone: doctor.phone ?? "",
         email: doctor.email ?? "",
         schedules: doctor.schedules.map(schedule => ({
