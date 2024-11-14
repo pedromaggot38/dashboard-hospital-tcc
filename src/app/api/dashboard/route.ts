@@ -1,7 +1,7 @@
+import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 
-export async function fetchDashboardData() {
-
+export async function GET() {
   try {
     const articlesCount = await db.article.count();
     const usersCount = await db.user.count();
@@ -13,14 +13,14 @@ export async function fetchDashboardData() {
       },
     });
 
-    return {
+    return NextResponse.json({
       articlesCount,
       usersCount,
       publishedArticlesCount,
-      doctorsCount
-    };
+      doctorsCount,
+    });
   } catch (error) {
     console.error("Error fetching dashboard data:", error);
-    throw new Error("Failed to fetch dashboard data");
+    return NextResponse.json({ error: "Failed to fetch dashboard data" }, { status: 500 });
   }
 }
