@@ -4,6 +4,7 @@ import NextAuth from "next-auth"
 import { getUserById, getUserIsBlocked } from "@/data/user"
 import { authConfig } from "./auth.config"
 import { db } from "@/lib/db"
+import { UserRole } from "@prisma/client"
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   callbacks: {
@@ -20,7 +21,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
       // Adicionar novos campos do DB ao token
       if (token.role && session.user) {
-        session.user.role = token.role;
+        session.user.role = token.role as UserRole;
       }
       if (session.user) {
         session.user.isBlocked = token.isBlocked as boolean;
