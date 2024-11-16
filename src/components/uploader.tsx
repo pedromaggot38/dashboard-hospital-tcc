@@ -1,4 +1,5 @@
 'use client'
+
 import React, { useState } from 'react'
 import {
     Dialog,
@@ -75,7 +76,7 @@ export default function Uploader({ onUploadSuccess }: UploaderProps) {
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTrigger asChild>
-                <Button variant="outline" onClick={() => setIsOpen(true)}>Definir Capa do Artigo</Button>
+                <Button variant="outline" onClick={() => setIsOpen(true)}>Definir Capa da Notícia</Button>
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>
@@ -91,7 +92,7 @@ export default function Uploader({ onUploadSuccess }: UploaderProps) {
                     />
                 </div>
                 <div className='mt-4 flex justify-end'>
-                    <Button onClick={handleUpload}>Definir Capa do Artigo</Button>
+                    <Button onClick={handleUpload}>Definir Capa da Notícia</Button>
                 </div>
             </DialogContent>
         </Dialog>

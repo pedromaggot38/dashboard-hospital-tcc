@@ -112,7 +112,7 @@ const NewArticle = () => {
                     }
                 })
                 .catch(() => {
-                    setError("Erro ao criar o artigo.");
+                    setError("Erro ao criar a notícia.");
                 });
         });
     };
@@ -130,7 +130,7 @@ const NewArticle = () => {
                                 </Button>
                             </Link>
                             <h1 className="flex-1 shrink-0 whitespace-nowrap text-xl font-semibold tracking-tight">
-                                Novo Artigo
+                                Nova Notícia
                             </h1>
                         </div>
                         <div className="grid gap-4 lg:gap-8">
@@ -141,8 +141,8 @@ const NewArticle = () => {
 
                                             <div className="flex">
                                                 <div className="flex-grow">
-                                                    <CardTitle>Detalhes do Artigo</CardTitle>
-                                                    <CardDescription>Preencha os campos abaixo para criar um novo artigo</CardDescription>
+                                                    <CardTitle>Detalhes da Notícia</CardTitle>
+                                                    <CardDescription>Preencha os campos abaixo para criar uma notícia.</CardDescription>
                                                 </div>
                                                 <div className="flex gap-4">
                                                     <FormField
@@ -188,7 +188,7 @@ const NewArticle = () => {
                                                             <FormItem>
                                                                 <FormLabel>Título</FormLabel>
                                                                 <FormControl>
-                                                                    <Input placeholder="Título do artigo" {...field} />
+                                                                    <Input placeholder="Título da notícia" {...field} />
                                                                 </FormControl>
                                                                 <FormMessage />
                                                             </FormItem>
@@ -201,7 +201,7 @@ const NewArticle = () => {
                                                             <FormItem>
                                                                 <FormLabel>Sub-título</FormLabel>
                                                                 <FormControl>
-                                                                    <Input placeholder="Sub-título do artigo" {...field} />
+                                                                    <Input placeholder="Sub-título da notícia" {...field} />
                                                                 </FormControl>
                                                                 <FormMessage />
                                                             </FormItem>
@@ -217,7 +217,7 @@ const NewArticle = () => {
                                                             <FormItem>
                                                                 <FormLabel>Slug</FormLabel>
                                                                 <FormControl>
-                                                                    <Input placeholder="Slug do artigo" {...field} />
+                                                                    <Input placeholder="Slug da notícia" {...field} />
                                                                 </FormControl>
                                                                 <FormMessage />
                                                             </FormItem>
@@ -230,7 +230,7 @@ const NewArticle = () => {
                                                             <FormItem>
                                                                 <FormLabel>Autor</FormLabel>
                                                                 <FormControl>
-                                                                    <Input placeholder="Autor do artigo" {...field} />
+                                                                    <Input placeholder="Autor da notícia" {...field} />
                                                                 </FormControl>
                                                                 <FormMessage />
                                                             </FormItem>
@@ -244,7 +244,7 @@ const NewArticle = () => {
                                                         name="imageUrl"
                                                         render={({ field }) => (
                                                             <FormItem>
-                                                                <FormLabel>Capa do artigo</FormLabel>
+                                                                <FormLabel>Capa da notícia</FormLabel>
                                                                 <FormControl>
                                                                     <Input type="text" placeholder="URL" {...field} />
                                                                 </FormControl>
@@ -292,7 +292,7 @@ const NewArticle = () => {
                                             {error && <FormError message={error} />}
                                         </div>
                                         <div>
-                                            <Button type="submit" disabled={isPending}>Criar Artigo</Button>
+                                            <Button type="submit" disabled={isPending}>Criar Notícia</Button>
                                         </div>
                                     </div>
                                 </form>

@@ -32,9 +32,9 @@ const menuItems = [
         accessibility: "Usuários",
     },
     {
-        title: "Artigos",
+        title: "Notícias",
         path: "/dashboard/articles",
-        accessibility: "Artigos",
+        accessibility: "Notícias",
     },
     {
         title: "Médicos",

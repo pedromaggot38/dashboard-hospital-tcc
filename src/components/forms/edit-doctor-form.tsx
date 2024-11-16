@@ -394,7 +394,7 @@ const EditDoctorForm: React.FC<EditDoctorFormProps> = ({ doctor }) => {
                                                     <AlertDialogHeader>
                                                         <AlertDialogTitle>Confirmar Exclusão</AlertDialogTitle>
                                                         <AlertDialogDescription>
-                                                            Você tem certeza que deseja apagar este artigo? Esta ação não pode ser desfeita.
+                                                            Você tem certeza que deseja apagar este médico? Esta ação não pode ser desfeita.
                                                         </AlertDialogDescription>
                                                     </AlertDialogHeader>
                                                     <AlertDialogFooter>

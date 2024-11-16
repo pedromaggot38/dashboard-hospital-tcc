@@ -112,7 +112,7 @@ const EditArticleForm: React.FC<EditArticleProps> = ({ article, originalSlug }) 
                     }
                 })
                 .catch(() => {
-                    setError("Erro ao atualizar o artigo.");
+                    setError("Erro ao atualizar a notícia.");
                     setTimeout(() => setError(''), 2000);
                 });
         });
@@ -146,7 +146,7 @@ const EditArticleForm: React.FC<EditArticleProps> = ({ article, originalSlug }) 
                                 </Button>
                             </Link>
                             <h1 className="flex-1 shrink-0 whitespace-nowrap text-xl font-semibold tracking-tight">
-                                Editar Artigo
+                                Editar Notícia
                             </h1>
                         </div>
                         <div className="grid gap-4 lg:gap-8">
@@ -156,8 +156,8 @@ const EditArticleForm: React.FC<EditArticleProps> = ({ article, originalSlug }) 
                                         <CardHeader>
                                             <div className="flex">
                                                 <div className="flex-grow">
-                                                    <CardTitle>Detalhes do Artigo</CardTitle>
-                                                    <CardDescription>Edite os campos abaixo para atualizar o artigo</CardDescription>
+                                                    <CardTitle>Detalhes da Notícia</CardTitle>
+                                                    <CardDescription>Edite os campos abaixo para atualizar a notícia</CardDescription>
                                                 </div>
                                                 <div className="flex gap-4">
                                                     <FormField
@@ -203,7 +203,7 @@ const EditArticleForm: React.FC<EditArticleProps> = ({ article, originalSlug }) 
                                                             <FormItem>
                                                                 <FormLabel>Título</FormLabel>
                                                                 <FormControl>
-                                                                    <Input placeholder="Título do artigo" {...field} />
+                                                                    <Input placeholder="Título da notícia" {...field} />
                                                                 </FormControl>
                                                                 <FormMessage />
                                                             </FormItem>
@@ -216,7 +216,7 @@ const EditArticleForm: React.FC<EditArticleProps> = ({ article, originalSlug }) 
                                                             <FormItem>
                                                                 <FormLabel>Sub-título</FormLabel>
                                                                 <FormControl>
-                                                                    <Input placeholder="Sub-título do artigo" {...field} />
+                                                                    <Input placeholder="Sub-título da notícia" {...field} />
                                                                 </FormControl>
                                                                 <FormMessage />
                                                             </FormItem>
@@ -230,7 +230,7 @@ const EditArticleForm: React.FC<EditArticleProps> = ({ article, originalSlug }) 
                                                             <FormItem>
                                                                 <FormLabel>Slug</FormLabel>
                                                                 <FormControl>
-                                                                    <Input placeholder="Slug do artigo" {...field} />
+                                                                    <Input placeholder="Slug da notícia" {...field} />
                                                                 </FormControl>
                                                                 <FormMessage />
                                                             </FormItem>
@@ -243,7 +243,7 @@ const EditArticleForm: React.FC<EditArticleProps> = ({ article, originalSlug }) 
                                                             <FormItem>
                                                                 <FormLabel>Autor</FormLabel>
                                                                 <FormControl>
-                                                                    <Input placeholder="Autor do artigo" {...field} />
+                                                                    <Input placeholder="Autor da notícia" {...field} />
                                                                 </FormControl>
                                                                 <FormMessage />
                                                             </FormItem>
@@ -255,7 +255,7 @@ const EditArticleForm: React.FC<EditArticleProps> = ({ article, originalSlug }) 
                                                         name="imageUrl"
                                                         render={({ field }) => (
                                                             <FormItem>
-                                                                <FormLabel>Capa do artigo</FormLabel>
+                                                                <FormLabel>Capa da notícia</FormLabel>
                                                                 <FormControl>
                                                                     <Input type="text" placeholder="URL" {...field} />
                                                                 </FormControl>
@@ -312,7 +312,7 @@ const EditArticleForm: React.FC<EditArticleProps> = ({ article, originalSlug }) 
                                                             <AlertDialogHeader>
                                                                 <AlertDialogTitle>Confirmar Exclusão</AlertDialogTitle>
                                                                 <AlertDialogDescription>
-                                                                    Você tem certeza que deseja apagar este artigo? Esta ação não pode ser desfeita.
+                                                                    Você tem certeza que deseja apagar esta notícia? Esta ação não pode ser desfeita.
                                                                 </AlertDialogDescription>
                                                             </AlertDialogHeader>
                                                             <AlertDialogFooter>
@@ -323,7 +323,7 @@ const EditArticleForm: React.FC<EditArticleProps> = ({ article, originalSlug }) 
                                                     </AlertDialog>
                                                 </>
                                             )}
-                                            <Button type="submit" disabled={isPending}>Salvar Artigo</Button>
+                                            <Button type="submit" disabled={isPending}>Salvar Notícia</Button>
                                         </div>
                                     </div>
                                 </form>

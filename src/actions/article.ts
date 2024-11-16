@@ -55,10 +55,10 @@ export const createArticle = async (values: z.infer<typeof ArticleSchema>) => {
         })
     } catch (error) {
         console.error(error);
-        return { error: "Erro ao criar o artigo" }
+        return { error: "Erro ao criar a notícia" }
     }
     revalidatePath('/dashboard/articles')
-    return { success: "Artigo criado!" }
+    return { success: "Notícia criada!" }
 }
 
 export const updateArticle = async (values: z.infer<typeof ArticleSchema> & { slug: string }, originalSlug: string) => {
@@ -78,7 +78,7 @@ export const updateArticle = async (values: z.infer<typeof ArticleSchema> & { sl
     });
 
     if (!existingArticle) {
-        return { error: "Artigo não encontrado." };
+        return { error: "Notícia não encontrada." };
     }
 
     const conflictingArticle = await db.article.findFirst({
@@ -114,7 +114,7 @@ export const updateArticle = async (values: z.infer<typeof ArticleSchema> & { sl
         }
     });
 
-    return { success: "Artigo atualizado!" };
+    return { success: "Notícia atualizada!" };
 };
 
 export const deleteArticle = async (slug: string) => {
@@ -123,14 +123,14 @@ export const deleteArticle = async (slug: string) => {
             where: { slug },
         });
         if (!article) {
-            throw new Error('Artigo não encontrado');
+            throw new Error('Notícia não encontrada');
         }
         await db.article.delete({
             where: { slug },
         });
-        return { success: true, message: 'Artigo deletado com sucesso' };
+        return { success: true, message: 'Notícia deletada com sucesso' };
     } catch (error: any) {
-        console.error('Erro ao deletar o artigo:', error.message);
-        return { success: false, message: error.message || 'Erro ao deletar o artigo' };
+        console.error('Erro ao deletar a notícia:', error.message);
+        return { success: false, message: error.message || 'Erro ao deletar a notícia' };
     }
 };

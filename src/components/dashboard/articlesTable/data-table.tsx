@@ -79,7 +79,7 @@ export function DataTable<TData, TValue>({
     <div>
       <div>
         <div className="flex items-center justify-between py-4">
-          <h1 className="text-3xl font-semibold">Artigos</h1>
+          <h1 className="text-3xl font-semibold">Notícias</h1>
           <div className="flex space-x-2">
             <Input
               placeholder="Procure por um título..."
@@ -123,11 +123,11 @@ export function DataTable<TData, TValue>({
               variant="outline"
             >
               <Link
-                key="Novo Artigo"
+                key="Nova Notícia"
                 href="/dashboard/articles/new-article/"
               >
-                <span>Novo Artigo</span>
-                <span className="sr-only">Novo Artigo</span>
+                <span>Nova Notícia</span>
+                <span className="sr-only">Nova Notícia</span>
               </Link>
             </Button>
           </div>

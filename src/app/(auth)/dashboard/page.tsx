@@ -31,7 +31,7 @@ const DashboardPage = () => {
   const cardItems = [
     { title: "Usuários", description: "Quantidade total de usuários registrados.", fetchCount: data?.usersCount },
     { title: "Médicos", description: "Quantidade total de médicos cadastrados.", fetchCount: data?.doctorsCount },
-    { title: "Notícias Publicadas", description: "Quantidade total de artigos que estão publicados.", fetchCount: data?.publishedArticlesCount },
+    { title: "Notícias Publicadas", description: "Quantidade total de notícias que estão publicadas.", fetchCount: data?.publishedArticlesCount },
     { title: "Notícias", description: "Quantidade total de notícias cadastradas.", fetchCount: data?.articlesCount },
   ];
 

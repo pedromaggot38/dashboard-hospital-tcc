@@ -95,7 +95,7 @@ export const columns: ColumnDef<Articles>[] = [
                                     </Badge>
                                 </div>
                                 <p className="text-sm">
-                                    Total de artigos publicados do usuário: {user.articleCount}
+                                    Total de notícias publicadas do usuário: {user.articleCount}
                                 </p>
                                 <div className="flex items-center pt-2">
                                     <span className="text-xs text-muted-foreground">

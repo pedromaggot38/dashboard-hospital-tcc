@@ -157,7 +157,7 @@ const AccountTabContent: React.FC<AccountTabProps> = ({ user, currentRole }) => 
                                                 <SelectContent>
                                                     <SelectGroup>
                                                         <SelectLabel>Cargos</SelectLabel>
-                                                        <SelectItem value="root">Root</SelectItem>
+                                                        {currentRole !== 'admin' && <SelectItem value="root">Root</SelectItem>}
                                                         <SelectItem value="admin">Administrador</SelectItem>
                                                         <SelectItem value="journalist">Jornalista</SelectItem>
                                                     </SelectGroup>

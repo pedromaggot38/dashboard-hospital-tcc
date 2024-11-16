@@ -43,10 +43,10 @@ const ActionMenu: React.FC<ActionMenuProps> = ({ article }) => {
                 router.push("/dashboard/articles");
                 router.refresh();
             } else {
-                console.error('Erro ao apagar o artigo:', response.message);
+                console.error('Erro ao apagar a notícia:', response.message);
             }
         } catch (error) {
-            console.error("Erro ao deletar o artigo:", error);
+            console.error("Erro ao deletar a notícia:", error);
         }
     };
 
@@ -65,7 +65,7 @@ const ActionMenu: React.FC<ActionMenuProps> = ({ article }) => {
                     <DropdownMenuItem
                         onSelect={() => router.push(`/dashboard/articles/${article.slug}/`)}
                     >
-                        Editar artigo
+                        Editar notícia
                     </DropdownMenuItem>
                     {role !== 'journalist' && (
                         <>
@@ -73,7 +73,7 @@ const ActionMenu: React.FC<ActionMenuProps> = ({ article }) => {
                             <DropdownMenuItem
                                 onSelect={() => setIsDialogOpen(true)}
                             >
-                                <span className='text-red-500'>Apagar artigo</span>
+                                <span className='text-red-500'>Apagar notícia</span>
                             </DropdownMenuItem>
                         </>
                     )}
@@ -87,7 +87,7 @@ const ActionMenu: React.FC<ActionMenuProps> = ({ article }) => {
                     <AlertDialogHeader>
                         <AlertDialogTitle>Confirmar exclusão</AlertDialogTitle>
                         <AlertDialogDescription>
-                            Você tem certeza que deseja apagar este artigo? Esta ação não pode ser desfeita.
+                            Você tem certeza que deseja apagar esta notícia? Esta ação não pode ser desfeita.
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
