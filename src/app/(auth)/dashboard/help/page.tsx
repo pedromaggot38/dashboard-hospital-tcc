@@ -7,32 +7,6 @@ import {
     AccordionTrigger,
 } from "@/components/ui/accordion";
 
-const generalTips = {
-    introduction: "Explore informações gerais sobre o sistema, incluindo roles de usuários e permissões.",
-    items: [
-        {
-            title: "O que são roles de usuário?",
-            content: "Roles são papéis atribuídos aos usuários para determinar o nível de acesso e as permissões dentro do sistema. Eles ajudam a manter a organização e a segurança, limitando o que cada usuário pode fazer.",
-        },
-        {
-            title: "Quais são os roles disponíveis?",
-            content: "O sistema possui três roles principais: Root, Admin e Jornalista.",
-        },
-        {
-            title: "Quais são as permissões do usuário Root?",
-            content: "O usuário Root tem acesso total ao sistema. Ele pode criar, editar e excluir qualquer conteúdo, além de gerenciar notícias, usuários, médicos e configurações críticas.",
-        },
-        {
-            title: "O que pode fazer um Admin?",
-            content: "O Admin possui permissões para gerenciar usuários e conteúdo. Ele pode criar, editar e excluir usuários comuns, médicos e notícias, mas não tem permissão para criar usuários Root ou alterar o nível de acesso de um usuário para Root.",
-        },
-        {
-            title: "Quais são as restrições do Jornalista?",
-            content: "O Jornalista é limitado à criação e edição de notícias. Ele não pode gerenciar usuários, médicos ou acessar outras partes administrativas do sistema.",
-        },
-    ],
-};
-
 const newsTips = {
     introduction: "Aprenda como criar, editar e gerenciar notícias no sistema.",
     items: [
@@ -164,7 +138,6 @@ const doctorTips = {
 };
 
 const sections = [
-    { title: "Dicas Gerais", data: generalTips },
     { title: "Dicas sobre Notícias", data: newsTips },
     { title: "Dicas sobre Usuários", data: userTips },
     { title: "Dicas sobre Médicos", data: doctorTips },
