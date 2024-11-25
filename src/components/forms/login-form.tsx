@@ -108,14 +108,6 @@ export const LoginForm = () => {
                                     </div>
                                     <div className="flex gap-4">
                                         <Button
-                                            asChild
-                                            type="button"
-                                            className="w-full bg-gray-100 hover:bg-gray-400 text-black "
-                                            disabled={isPending}
-                                        >
-                                            <Link href="/">Página Inicial</Link>
-                                        </Button>
-                                        <Button
                                             type="submit"
                                             className="w-full"
                                             disabled={isPending}

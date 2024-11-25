@@ -83,7 +83,7 @@ export const PasswordRecoveryForm = () => {
                         setSuccess('Senha alterada com sucesso.');
                         setTimeout(() => {
                             setSuccess('');
-                            router.push('/login');
+                            router.push('/');
                         }, 1500);
                     }
                     else {
