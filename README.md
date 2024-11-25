@@ -75,3 +75,15 @@ npm run dev
 
 ### 6. Acesse o site no navegador
 Abra o navegador e digite http://localhost:3000 para visualizar o projeto.
+
+---
+
+## Informações Adicionais
+
+### Storage
+Para que o sistema de upload de imagens funcione, deve-se adicionar no arquivo .env as seguintes variáveis de ambiente fornecidas pelo próprio Supabase:
+```bash
+NEXT_PUBLIC_SUPABASE_URL="https://invalid-url.supabase.co"
+NEXT_PUBLIC_SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IkpVY2lXbDBZYVNTV0hQb3BzYWIyZG8iLCJyb2xlIjoiY2xpZW50IiwiYWF0IjoxNjk3MzYyMDk2LCJleHAiOjE4OTcxNjI3OTZ9.invalid-key"
+```
+O storage deve-se chamar 'articles-images' e ser público. Altere essa configuração em 'Policies', adicionando permissões de Select, Insert, Delete e Update.
