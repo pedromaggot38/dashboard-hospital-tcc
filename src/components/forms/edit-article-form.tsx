@@ -132,7 +132,6 @@ const EditArticleForm: React.FC<EditArticleProps> = ({ article, originalSlug }) 
         }
     };
 
-
     return (
         <div className="flex flex-col sm:gap-4 sm:pl-14 w-full">
             <div className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
