@@ -126,5 +126,3 @@ model Schedule {
   @@index([doctorId, dayOfWeek])
   @@map("schedule")
 }
-
-//database test password: snpDMgpdBen6SYky
