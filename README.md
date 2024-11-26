@@ -47,24 +47,23 @@ pnpm install
 # ou, se preferir:
 npm install
 ```
-
-### 2. Configure o AuthJS Secret
-```bash
-npx auth secret
-```
-
-### 3. Configure as Variáveis de Ambiente
-```bash
-DATABASE_URL="postgresql://username:password@invalid-host:1234/invalid-db"
-NEXT_PUBLIC_SUPABASE_URL="https://invalid-url.supabase.co"
-NEXT_PUBLIC_SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IkpVY2lXbDBZYVNTV0hQb3BzYWIyZG8iLCJyb2xlIjoiY2xpZW50IiwiYWF0IjoxNjk3MzYyMDk2LCJleHAiOjE4OTcxNjI3OTZ9.invalid-key"
-```
-
-### 4. Configure o Prisma
+### 2. Configure o Prisma
 ```bash
 npx prisma migrate dev --name init
 
 npx prisma generate
+```
+
+### 3. Configure o AuthJS Secret (Extremamente Necessário)
+```bash
+npx auth secret
+```
+
+### 4. Configure as Variáveis de Ambiente
+```bash
+DATABASE_URL="postgresql://username:password@invalid-host:1234/invalid-db"
+NEXT_PUBLIC_SUPABASE_URL="https://invalid-url.supabase.co"
+NEXT_PUBLIC_SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IkpVY2lXbDBZYVNTV0hQb3BzYWIyZG8iLCJyb2xlIjoiY2xpZW50IiwiYWF0IjoxNjk3MzYyMDk2LCJleHAiOjE4OTcxNjI3OTZ9.invalid-key"
 ```
 
 ### 5. Inicie o servidor de desenvolvimento
@@ -87,4 +86,4 @@ Para que o sistema de upload de imagens funcione, deve-se adicionar no arquivo .
 NEXT_PUBLIC_SUPABASE_URL="https://invalid-url.supabase.co"
 NEXT_PUBLIC_SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IkpVY2lXbDBZYVNTV0hQb3BzYWIyZG8iLCJyb2xlIjoiY2xpZW50IiwiYWF0IjoxNjk3MzYyMDk2LCJleHAiOjE4OTcxNjI3OTZ9.invalid-key"
 ```
-A pasta do Storage deve-se chamar 'articles-images' e ser público. Altere essa configuração em 'Policies', adicionando permissões de Select, Insert, Delete e Update.
+O storage deve-se chamar 'articles-images' e ser público. Altere essa configuração em 'Policies', adicionando permissões de Select, Insert, Delete e Update.
