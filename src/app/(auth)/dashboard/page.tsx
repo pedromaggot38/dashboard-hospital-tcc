@@ -20,13 +20,13 @@ export default async function DashboardPage() {
       fetchCount: data.doctorsCount,
     },
     {
-      title: "Notícias Publicadas",
-      description: "Quantidade total de notícias que estão publicadas.",
+      title: "Notícias Visíveis",
+      description: "Quantidade total de notícias que estão visíveis ao público.",
       fetchCount: data.publishedArticlesCount,
     },
     {
       title: "Notícias",
-      description: "Quantidade total de notícias cadastradas.",
+      description: "Quantidade total de notícias no sistema.",
       fetchCount: data.articlesCount,
     },
   ];
