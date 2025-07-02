@@ -54,7 +54,7 @@ npx prisma migrate dev --name init
 npx prisma generate
 ```
 
-### 3. Configure o AuthJS Secret
+### 3. Configure o AuthJS Secret (Extremamente Necessário)
 ```bash
 npx auth secret
 ```
